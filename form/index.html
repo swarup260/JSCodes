@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>form</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <h1 id="test"></h1>
+    <form action="./" name="myForm" id="myForm">
+      <input type="text" placeholder="name" id="name" min="8" max="20" >
+      <span id="error_name"></span>
+      <br>
+      <input type="email" placeholder="Email" id="email">
+      <span id="error_email"></span>
+      <br>
+      <input type="number" placeholder="Phone" id="phone">
+      <span id="error_phone"></span>
+      <label for="Gender">Gender :</label>
+      <span id="error_gender"></span>
+      <br>
+      <label for="Male">Male :</label><input type="radio" name="gender" value="male" id="m">
+      <label for="Female">Female :</label><input type="radio" name="gender" value="female"  id="f">
+      <br>
+      <br>
+      <label for="Password">Password :</label><input type="password" name="pswd" id="pswd">
+      <span id="error_pswd"></span>
+      <br>
+      <label for="Repssword">Re-Type-Password :</label><input type="password" name="rpswd" id="rpswd">
+      <span id="error_rpswd"></span>
+      <br>
+      <label for="Categories">Categories :</label>
+      <span id="error_cat"></span>
+      <select name="categ" id="categ">
+        <option value="">..</option>
+        <optgroup name="Movies" label="Movies">Movies</optgroup>
+        <option value="BvS">BvS</option>
+        <option value="Deadpool">Deadpool</option>
+        <option value="Harry Potter">Harry Potter</option>
+        <optgroup label="Tvseries">Tvseries</optgroup>
+        <option value="flash">The Flash</option>
+        <option value="Supernatural">Supernatural</option>
+        <option value="breakingBad">Breaking Bad</option>
+        </optgroup>
+      </select>
+      <br>
+      <label for="mail">Mail Subscription :</label>
+      <span id="error_mail"></span>
+      <label for="mail">Technology</label><input type="checkbox" name="mail" id="m1" value ="tech">
+      <label for="mail">Movies</label><input type="checkbox" name="mail" id="m2" value ="movies">
+      <label for="mail">Tvseries</label><input type="checkbox" name="mail" id="m3" value ="tv">
+      <br>
+      <input type="submit" name="submit" value="submit" id="submit">
+      <span id="error_submit"></span>
+    </form>
+    <script src="./js/jquery.min.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>

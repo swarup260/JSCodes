@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Form Version 2</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+      <form action="./" method="POST" name="myForm" id="myForm">
+        <label for="Fname">Fname :</label><input type="text"  id="fname">
+        <span id="error_fname"></span>
+        <br>
+        <label for="Mname">Mname :</label><input type="text" name="mname" id="mname">
+        <span id="error_mname"></span>
+        <br>
+        <label for="Lname">Lname :</label><input type="text" name="lname" id="lname">
+        <span id="error_lname"></span>
+        <br>
+        <label for="Email">Email :</label><input type="email" name="email" id="email">
+        <span id="error_email"></span>
+        <br>
+        <label for="Phone">Phone :</label> <input type="text" name="phone" id="phone">
+        <span id="error_phone"></span>
+        <br>
+        <label for="Gender">Gender :</label>
+        <span id="error_gender"></span>
+        <br>
+        <label for="Male">Male :</label><input type="radio" name="gender" id="m">
+        <label for="Female">Female :</label><input type="radio" name="gender" id="f">
+        <br>
+        <label for="Username">Username :</label><input type="text" name="user" id="user">
+        <span id="error_username"></span>
+        <br>
+        <label for="Password">Password :</label><input type="password" name="pswd" id="pswd">
+        <span id="error_pswd"></span>
+        <br>
+        <label for="Repssword">Re-Type-Password :</label><input type="password" name="pswd" id="rpswd">
+        <span id="error_rpswd"></span>
+        <br>
+        <label for="Hobbies">Hobbies :</label>
+        <input type="text" name="hobbies" id="hob" list="hobbies">
+        <span id="error_hob"></span>
+          <datalist name="hobbies" id="hobbies">
+          <option value="reading">reading</option>
+          <option value="traveling">traveling</option>
+          <option value="dancing">dancing</option>
+        </datalist>
+        <br>
+        <label for="Categories">Categories :</label>
+        <span id="error_cat"></span>
+        <select name="categ" id="categ">
+          <optgroup name="Movies" label="Movies">Movies</optgroup>
+          <option value="BvS">BvS</option>
+          <option value="Deadpool">Deadpool</option>
+          <option value="Harry Potter">Harry Potter</option>
+          <optgroup label="Tvseries">Tvseries</optgroup>
+          <option value="flash">The Flash</option>
+          <option value="Supernatural">Supernatural</option>
+          <option value="breakingBad">Breaking Bad</option>
+          </optgroup>
+        </select>
+        <br>
+        <label for="mail">Mail Subscription :</label>
+        <span id="error_mail"></span>
+        <label for="mail">Technology</label><input type="checkbox" name="mail" id="m1" >
+        <label for="mail">Movies</label><input type="checkbox" name="mail" id="m2" >
+        <label for="mail">Tvseries</label><input type="checkbox" name="mail" id="m3" >
+        <br>
+        <label for="about">About you :</label>
+        <span id="error_about"></span>
+        <br>
+        <textarea name="about" rows="10" cols="40"></textarea>
+          <br>
+        <input type="submit" value="Submit" id="submit">
+      </form>
+    </div>
+    <script src="./js/jquery.min.js" charset="utf-8"></script>
+    <script src="./js/app.js" charset="utf-8"></script>
+
+</body>
+</html>

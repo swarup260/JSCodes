@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>form</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <form action="/" id="form" >
+    <label for="mail">Mail Subscription :</label>
+    <span id="error_mail"></span>
+    <label for="mail">Technology</label><input type="checkbox" name="mail" id="m1" >
+    <label for="mail">Movies</label><input type="checkbox" name="mail" id="m2" >
+    <label for="mail">Tvseries</label><input type="checkbox" name="mail" id="m3" >
+    <br>
+    <input type="submit" value="Submit" id="submit">
+  </form>
+    <script src="./js/jquery.min.js"></script>
+    <script type='text/javascript'>
+      $(document).ready(function(){
+        //Checks when a checkbox is checked
+        $('input[type="checkbox"]').click(function(){
+          //If more than 15 are checked - don't allow
+          if (this.checked && $('input:checked').length > 3) {
+            event.preventDefault();
+            alert('You can only check 15 checkboxes');
+          }
+        });
+      });
+   </script>
+</body>
+</html>
