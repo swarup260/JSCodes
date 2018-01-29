@@ -64,6 +64,7 @@ function Circle(x,y,dx,dy,radius){
   }
 }
 
+//Multiple Cricle
 var cArray = [];
 
 for (var i = 0; i < 300; i++) {

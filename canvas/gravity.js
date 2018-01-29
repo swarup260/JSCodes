@@ -14,39 +14,26 @@ function init(){
 
 init();
 
-
+var gravity = 1;
+var friction = 0.9;
 //Circle Object
-function Circle (x,y,radius,dx,dy){
+function Circle (x,y,radius,dy){
     this.x = x;
     this.y=y;
     this.radius = radius;
-    this.dx= dx || 2;
     this.dy = dy||2;
     this.draw = ()=>{
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius,0,Math.PI*2);
         ctx.fill();
     };
-    this.update =()=>{
-        
-        if(this.x + this.radius > innerWidth || this.x - this.radius < 0){
-            this.dx = -this.dx;
-        }/* BOUNCE EFFECT IN THE DIRECTION */
-        if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-            this.dy = -this.dy;
-        }
-        this.x += this.dx;
-        this.y += this.dy;
-
-        this.draw();
-
-    };
     this.gravity = () => {
         if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-            this.dy = -this.dy;
+            this.dy = -this.dy*friction;
+        }else{
+            this.dy += gravity;
         }
-        var g = 0.5;
-        this.y += this.dy*g;
+        this.y += this.dy;
         this.draw();
     }
         
@@ -54,12 +41,26 @@ function Circle (x,y,radius,dx,dy){
     
 }
 
+let cArray = [];
+
+for (var i = 0; i < 100; i++) {
+    var radius = 30;
+    var x = Math.random() * window.innerWidth ; //innerWidth
+    var y = Math.random() * window.innerHeight -radius;
+    var dy = Math.random() * 10;
+    cArray.push(new Circle(x, y, radius,dy));
+}
+
+console.log(cArray);
 //Instance of Circle 
-let c = new Circle(200,300,50,2,2);
 function animate(){
     requestAnimationFrame(animate);
     ctx.clearRect(0,0,innerWidth,innerHeight);
-    c.gravity();
+    for (let i = 0; i < cArray.length; i++) {
+        cArray[i].gravity();
+        
+    }
+    // c.gravity();
 }
 
 
