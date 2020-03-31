@@ -1,6 +1,7 @@
 const UserModel = require('../models/User.model');
-const { getToken} = require('../helpers/function.helper')
-exports.addUser = async (request, response) => {
+const { getToken} = require('../helpers/function.helper');
+
+exports.registerUser = async (request, response) => {
     try {
         
         const requestBody = request.body;
@@ -28,6 +29,12 @@ exports.addUser = async (request, response) => {
             return response.status(400).json({
                 status: false,
                 message: `email is required`
+            })
+        }
+        if (!requestBody.email.match(/[a-zA-Z._].*@[a-z].*\.(com|co|in)/g)) {
+            return response.status(400).json({
+                status: false,
+                message: `not valid email id`
             })
         }
         /* Save Response */

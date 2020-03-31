@@ -11,7 +11,9 @@ app.use(bodyParser.json());
 
 /* Routers */
 
+const userRoutes = require('./api/routes/User.routes');
 
+app.use('/users',userRoutes);
 
 
 
