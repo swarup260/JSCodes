@@ -16,8 +16,3 @@ exports.userExists = async data => {
     }
     return await user;
 }
-
-// { username: 'swarup260',
-//   email: 'swarup260@gmail.com',
-//   iat: 1585678135,
-//   exp: 1585681735 }
