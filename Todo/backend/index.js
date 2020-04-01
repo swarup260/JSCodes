@@ -3,17 +3,21 @@ const Express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const config = require('./api/config');
+const cors = require('cors');
 /* Express App */
 const app = Express();
 
 /* Middlewares */
 app.use(bodyParser.json());
+app.use(cors())
 
 /* Routers */
 
 const userRoutes = require('./api/routes/User.routes');
+const todoRoutes = require('./api/routes/Todo.routes')
 
 app.use('/users',userRoutes);
+app.use('/todos', todoRoutes);
 
 
 
@@ -29,7 +33,7 @@ mongoose.connect(
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: true, 
+        useFindAndModify: false, 
     },
     (error , db) => {
         if(error) throw error;
