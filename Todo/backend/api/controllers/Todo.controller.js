@@ -6,7 +6,8 @@ const {
 
 
 module.exports.addTodo = async (request, response) => {
-    let requestBody = request.body;    
+    const requestBody = request.body;
+    const userData = request.userData;
     try {
         if (typeof requestBody != 'object') {
             return response.status(400).json({
@@ -20,7 +21,7 @@ module.exports.addTodo = async (request, response) => {
                 message: "taskName required and must be a string"
             })
         }
-        
+
         if (!requestBody.hasOwnProperty("status") && typeof requestBody.status != "boolean") {
             return response.status(400).json({
                 status: false,
@@ -38,7 +39,8 @@ module.exports.addTodo = async (request, response) => {
             taskName: requestBody.taskName,
             status: requestBody.status,
             isComplete: false,
-            deadline: requestBody.deadline
+            deadline: requestBody.deadline,
+            user: userData._id
         });
         const result = await newTodo.save();
 
@@ -51,7 +53,7 @@ module.exports.addTodo = async (request, response) => {
 
     } catch (error) {
         // console.log(error);
-        
+
         return response.status(400).json({
             status: false,
             message: error
@@ -62,17 +64,12 @@ module.exports.addTodo = async (request, response) => {
 
 module.exports.updateTodo = async (request, response) => {
     const requestBody = request.body;
+    const userObjectID = request.userData._id;
     try {
         if (typeof requestBody != 'object') {
             return response.status(400).json({
                 status: false,
                 message: "must be an object"
-            })
-        }
-        if (!ObjectID.isValid(requestBody.id)) {
-            return response.status(400).json({
-                status: false,
-                message: `invalid object id`
             })
         }
         if (typeof requestBody.update != 'object') {
@@ -95,13 +92,14 @@ module.exports.updateTodo = async (request, response) => {
             updateObject.isComplete = requestBody.update.isComplete;
         }
         if (requestBody.update.deadline) {
-            updateObject.deadline = requestBody.update.deadline;
+            updateObject.deadline = Date.parse(requestBody.update.deadline);
         }
-
+        
         const result = await todoModel.findOneAndUpdate({
-                _id: requestBody.id
-            },updateObject,
-            {new: true}
+            _id: requestBody.id,
+            user : userObjectID
+        }, updateObject,
+            { new: true }
         ).exec();
 
         return response.status(200).json({
@@ -122,6 +120,7 @@ module.exports.updateTodo = async (request, response) => {
 
 module.exports.getTodo = async (request, response) => {
     const id = await request.query.id;
+    const userObjectID = request.userData._id;
     try {
         if (id) {
             if (typeof id != 'string') {
@@ -139,7 +138,8 @@ module.exports.getTodo = async (request, response) => {
             }
 
             const result = await todoModel.find({
-                _id: id
+                _id: id,
+                user: userObjectID
             }).exec();
             return response.status(200).json({
                 status: false,
@@ -149,7 +149,7 @@ module.exports.getTodo = async (request, response) => {
 
         }
 
-        const result = await todoModel.find().exec();
+        const result = await todoModel.find({ user: userObjectID }).exec();
         return response.status(200).json({
             status: false,
             message: "todo list",
@@ -166,7 +166,8 @@ module.exports.getTodo = async (request, response) => {
 }
 
 module.exports.deleteTodo = async (request, response) => {
-    const id = await request.query.id;
+    let id = await request.params.objectId;
+    const userObjectID = request.userData._id;
     try {
         if (id) {
             if (typeof id != 'string') {
@@ -184,12 +185,21 @@ module.exports.deleteTodo = async (request, response) => {
             }
 
             const result = await todoModel.deleteOne({
-                _id: id
+                _id: id,
+                user: userObjectID
             }).exec();
-            return response.status(200).json({
+            console.log(result);
+            
+            if (result.deletedCount) {
+                return response.status(200).json({
+                    status: true,
+                    message: "todo deleted successfully",
+                });
+            }
+
+            return response.status(400).json({
                 status: false,
-                message: "todo deleted successfully",
-                data: result
+                message: "failed to delete",
             });
 
         }
