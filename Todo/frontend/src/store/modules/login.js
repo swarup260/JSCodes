@@ -3,11 +3,13 @@ import api from '../../_api'
 import router from '../../router'
 
 const state = {
-  userData: ''
+  userData: '',
+  error: {}
 }
 
 const getters = {
-  getUserData: state => state.userData
+  getUserData: state => state.userData,
+  getError: state => state.error
 }
 
 const mutations = {
@@ -16,7 +18,8 @@ const mutations = {
     localStorage.setItem('userData', JSON.stringify(data))
     /* Set Axios Header */
     axios.defaults.headers.common.Authorization = `Bearer ${data.data}`
-  }
+  },
+  setError: (state, error) => (state.error = error)
 }
 
 const actions = {
@@ -27,8 +30,11 @@ const actions = {
         commit('setUserData', result.data)
         router.push('/home')
       }
+      if (result.status === 400) {
+        commit('setError', result.data)
+      }
     } catch (error) {
-
+      commit('setError', { status: false, message: error.message })
     }
   },
   async signup ({ commit }, formData) {
@@ -38,8 +44,11 @@ const actions = {
         commit('setUserData', result.data)
         router.push('/home')
       }
+      if (result.status === 400) {
+        commit('setError', result.data)
+      }
     } catch (error) {
-
+      commit('setError', { status: false, message: error.message })
     }
   }
 }
