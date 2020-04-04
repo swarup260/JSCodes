@@ -1,19 +1,22 @@
 <template>
-  <div class="home">
+  <div>
     <b-container>
-      <Login />
+      <AddTodo />
+      <Todos />
     </b-container>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Login from '@/components/Login.vue'
+import AddTodo from '@/components/AddTodo.vue'
+import Todos from '@/components/Todos.vue'
 
 export default {
   name: 'Home',
   components: {
-    Login
+    AddTodo,
+    Todos
   }
 }
 </script>
