@@ -1,10 +1,17 @@
 <template>
-  <div>
-    <b-container>
-      <AddTodo />
-      <Todos />
-    </b-container>
-  </div>
+<!-- eslint-disable -->
+<!-- https://masonry.desandro.com/ CSS GRID -->
+<!-- https://scotch.io/tutorials/building-a-google-keep-clone-with-vue-and-firebase-pt-2-->
+  <b-container>
+    <b-row>
+      <b-col cols="12">
+          <AddTodo class="my-3" />
+      </b-col>
+      <b-col cols="12">
+          <Todos class="my-4" />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
