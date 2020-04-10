@@ -1,29 +1,16 @@
 <template>
 <!-- eslint-disable -->
-  <div>
-    <b-form @submit="onSubmit">
-      <b-form-textarea
-      id="textarea-small"
-      size="sm"
-      v-model="formData.taskName"
-      placeholder="Enter Todo"
-    ></b-form-textarea>
-      <!-- <b-input
-        id="inline-form-input-name"
-        class="mb-2 mr-sm-2 mb-sm-0"
-        v-model="formData.taskName"
-        placeholder="Enter Todo"
-      ></b-input>
-      <b-form-datepicker id="example-datepicker" v-model="formData.deadline" class="mb-2"></b-form-datepicker>
-      <b-form-checkbox
-        id="checkbox-1"
-        v-model="formData.status"
-        name="checkbox-1"
-        unchecked-value="not_accepted"
-      ></b-form-checkbox>
-      <b-button type="submit" variant="primary">Add</b-button> -->
-    </b-form>
-  </div>
+  <b-container class="d-flex justify-content-center">
+    <div class="position-relative">
+      <div class="keep-note title-style" contenteditable="true" id="title">
+          <p class="text-left">Title</p>
+        </div>
+        <div class="keep-note body-style" contenteditable="true" @click="viewEditTask" id="body">
+          <p class="text-left">Add a task...</p>
+            <button class="close-btn" @click="closeEditTask"><i class="large material-icons icon">close</i></button>
+        </div>
+    </div>
+  </b-container>
 </template>
 <script>
 import { mapActions } from 'vuex'
@@ -43,21 +30,74 @@ export default {
     onSubmit: function (event) {
       event.preventDefault()
       this.addTodo(this.formData)
+    },
+    viewEditTask: function (event) {
+      const titleBox = document.querySelector('div#title')
+      const bodyBox = document.querySelector('div#body')
+      const closeBtn = document.querySelector('button.close-btn')
+      titleBox.style.display = 'block'
+      closeBtn.style.display = 'block'
+      bodyBox.classList.remove('body-style')
+      bodyBox.classList.add('transition-body-style')
+    },
+    closeEditTask: function (event) {
+      console.log('cleck')
+
+      const titleBox = document.querySelector('div#title')
+      const bodyBox = document.querySelector('div#body')
+      const closeBtn = document.querySelector('button.close-btn')
+      titleBox.style.display = 'none'
+      closeBtn.style.display = 'none'
+      bodyBox.classList.remove('transition-body-style')
+      bodyBox.classList.add('body-style')
     }
   }
 }
 </script>
 <style scoped>
-textarea{
-    border-radius : 0.5rem;
-    padding-top: 12px;
+.keep-note{
+  margin-top: 50px;
+  width: 598px;
+  height: 46px;
+  color: hsl(225, 6%, 13%);
+  font-size: 14px;
+  gap: normal;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+  padding: 12px 16px;
+  border: 1px solid black;
 }
-textarea::placeholder {
-    color: peachpuff;
-    letter-spacing: .01428571em;
-    font-family: Roboto,Arial,sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.25rem;
+.body-style {
+  border-radius: 0.5rem;
+}
+
+.title-style {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom: none;
+  display: none;
+}
+
+.transition-body-style {
+  position: absolute;
+  height: 76px;
+  top: 30%;
+  border-top: none;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  transition: all 0.15s ease 0s;
+}
+div:focus {
+  outline-style: none;
+  outline: none;
+}
+/* ToolBar */
+
+.close-btn{
+  border: none;
+  background: none;
+  float: right;
+  cursor: pointer;
+  display: none;
 }
 </style>
