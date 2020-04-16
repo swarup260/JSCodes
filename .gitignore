@@ -1,1 +1,10 @@
 node_modules/
+
+.cache/
+
+JsWorkflow/development/*
+
+JsWorkflow/.cache/*
+
+
+package-lock.json
