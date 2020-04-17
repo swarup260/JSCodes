@@ -1,2 +1,5 @@
 import './scss/style.scss';
-console.log("hello")
+import {init} from '../src/js/cavans/init'
+
+
+init();
