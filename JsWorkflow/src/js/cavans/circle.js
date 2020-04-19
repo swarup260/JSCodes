@@ -1,34 +1,45 @@
 class Circle {
-    constructor(context, x, y, radius, startAngle, endAngle, clockwise, fillFlag, fillStyle, strokeFlag, strokeStyle) {
+    constructor(context, x, y, radius, dx,dy ,fillFlag, fillStyle, strokeFlag, strokeStyle) {
         this.context = context;
         this.x = x;
         this.y = y;
         this.radius = radius;
-        this.startAngle = startAngle;
-        this.endAngle = endAngle;
-        this.clockwise = clockwise;
         this.fillFlag = fillFlag;
         this.fillStyle = fillStyle;
         this.strokeFlag = strokeFlag;
         this.strokeStyle = strokeStyle;
+        this.dx = dx;
+        this.dy = dy;
     }
 
     draw() {
         this.context.beginPath();
-        this.context.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle, this.clockwise);
+        this.context.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
         if (this.fillFlag) {
             this.context.fillStyle = this.fillStyle;
             this.context.fill();
         }
         if (this.strokeFlag) {
+            console.log("asd");
+            
             this.context.strokeStyle = this.strokeStyle;
             this.context.stroke();
         }
     }
 
-    animate(xVelocity, yVelocity){
-        this.x += xVelocity;
-        this.y+= yVelocity;
+    animate(){
+        if ((this.x + this.radius) > innerWidth || (this.x - this.radius) < 0 ) {
+            this.dx = -this.dx;
+        }
+        if ((this.y + this.radius) > innerHeight || (this.y - this.radius) < 0 ) {
+            this.dy = -this.dy;
+        }
+
+
+        this.x += this.dx;
+        this.y += this.dy;
+
+        this.draw();
     }
 }
 
@@ -40,13 +51,12 @@ export default class CircleBuilder {
         this.x = innerWidth / 2;
         this.y = innerHeight / 2;
         this.radius = 60;
-        this.startAngle = 0;
-        this.endAngle = Math.PI * 2;
-        this.clockwise = false;
         this.fillFlag = false;
         this.fillStyle = 'red';
-        this.strokeFlag = false;
+        this.strokeFlag = true;
         this.strokeStyle = 'black';
+        this.dx = 0;
+        this.dy = 0;
     }
 
     setX(x) {
@@ -60,20 +70,6 @@ export default class CircleBuilder {
 
     setRadius(radius) {
         this.radius = radius;
-        return this;
-    }
-
-    setStartAngle(startAngle) {
-        this.startAngle = startAngle;
-        return this;
-    }
-    setEndAngle(endAngle) {
-        this.endAngle = endAngle;
-        return this;
-    }
-
-    setClockwise(clockwise) {
-        this.clockwise = clockwise;
         return this;
     }
 
@@ -97,15 +93,23 @@ export default class CircleBuilder {
         return this;
     }
 
+    setXvelocity(dx){
+        this.dx = dx;
+        return this;
+    }
+    setYvelocity(dy){
+        this.dy = dy;
+        return this;
+    }
+
     build() {
         return new Circle(
             this.ctx,
             this.x,
             this.y,
             this.radius,
-            this.startAngle,
-            this.endAngle,
-            this.clockwise,
+            this.dx,
+            this.dy,
             this.fillFlag,
             this.fillStyle,
             this.strokeFlag,
