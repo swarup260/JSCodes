@@ -19,9 +19,7 @@ class Circle {
             this.context.fillStyle = this.fillStyle;
             this.context.fill();
         }
-        if (this.strokeFlag) {
-            console.log("asd");
-            
+        if (this.strokeFlag) {            
             this.context.strokeStyle = this.strokeStyle;
             this.context.stroke();
         }
