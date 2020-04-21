@@ -10,6 +10,8 @@ class Circle {
         this.strokeStyle = strokeStyle;
         this.dx = dx;
         this.dy = dy;
+        this.minRadius = 0;
+        this.maxRadius = this.radius *2;
     }
 
     draw() {
@@ -25,7 +27,7 @@ class Circle {
         }
     }
 
-    animate(){
+    animate(mouseMovement){
         if ((this.x + this.radius) > innerWidth || (this.x - this.radius) < 0 ) {
             this.dx = -this.dx;
         }
@@ -36,6 +38,38 @@ class Circle {
 
         this.x += this.dx;
         this.y += this.dy;
+
+
+        // this.interactive(mouseMovement);
+        /* interactve */
+        this.interactive(mouseMovement);
+
+        this.draw();
+    }
+
+    interactive(mouseMovement) {
+        if (mouseMovement.x - this.x < 50 && mouseMovement.x - this.x > -50 &&
+            mouseMovement.y - this.y < 50 && mouseMovement.y - this.y > -50
+            && this.radius < this.maxRadius) {
+            this.minRadius = this.radius;
+            this.radius += 1;
+        }
+        else if (this.radius > this.maxRadius) {
+            this.radius -= 1;
+        }
+    }
+
+    gravity(gravityVelocity,friction){
+        if ((this.x + this.radius) > innerWidth || (this.x - this.radius) < 0) {
+            this.dx = -this.dx;
+        }
+        if ((this.y + this.radius) > innerHeight || (this.y - this.radius) < 0) {
+            this.dy = -this.dy * friction;
+        }else{
+            this.dy += gravityVelocity;
+        }
+        this.y += this.dy;
+        this.x += this.dx;
 
         this.draw();
     }
